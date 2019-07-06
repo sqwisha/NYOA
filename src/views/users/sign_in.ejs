@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+    <title>Sign Up</title>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/messages.ejs %>
+
+    <main>
+      <div class="form-wrapper">
+        <h3>Sign In</h3>
+        <form action="/users/login" method="POST">
+          <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter email" required autofocus>
+          <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required minlength="4">
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </main>
+
+    <% include ../static/partials/baseScripts.js %>
+  </body>
+</html>

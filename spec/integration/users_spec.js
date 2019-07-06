@@ -22,7 +22,7 @@ describe('routes : users', () => {
       request.get(`${base}/sign_up`, (err, res, body) => {
         expect(err).toBeNull();
         expect(res.statusCode).toBe(200);
-        expect(body).toContain('Sign Up');
+        expect(body).toContain('<h3>Sign Up</h3>');
         done();
       });
     });
@@ -65,6 +65,38 @@ describe('routes : users', () => {
         done();
       });
     });
+  });
+
+  describe('GET users/sign_in', () => {
+    it('should render sign in page', (done) => {
+      request.get(`${base}/sign_in`, (err, res, body) => {
+        expect(res.statusCode).toBe(200);
+        expect(body).toContain('<h3>Sign In</h3>');
+        done();
+      });
+    });
+  });
+
+  describe('POST users/login', () => {
+    it('should log in as signed-up user', (done) => {
+      User.create({
+        name: 'Bob User',
+        email: 'bob@email.com',
+        password: 'password'
+      })
+      .then((user) => {
+        request.post({
+          url: `${base}/login`,
+          form: {
+            email: 'bob@email.com',
+            password: 'password'
+          }
+        }, (err, res, body) => {
+          expect(res.statusCode).toBe(302); // redirect to home
+          done();
+        });
+      });
+    })
   });
 
 });

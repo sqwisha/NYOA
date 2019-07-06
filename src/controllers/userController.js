@@ -1,5 +1,6 @@
 const User = require('../db/models').User;
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 module.exports = {
   signUp (req, res, next) {
@@ -14,15 +15,34 @@ module.exports = {
         password: hashedPassword
       })
       .then((user) => {
-        // TODO auto sign in
-        req.flash('notice', 'Successfully signed up!');
-        res.redirect('/');
+        passport.authenticate('local')(req, res, () => {
+          req.flash('notice', 'You have successfully signed in!');
+          res.redirect('/');
+        });
       })
       .catch((err) => {
-        console.log(err);
         req.flash('error', err.message);
         res.redirect('/users/sign_up');
       });
     });
+  },
+  signIn(req, res, next) {
+    res.render('users/sign_in');
+  },
+  login(req, res, next) {
+    passport.authenticate('local')(req, res, () => {
+      if (req.user === undefined || !req.user.passwordMatch) {
+        req.logout();
+        req.flash('notice', 'Sign in failed. Please try again.');
+        res.redirect('/users/sign_in');
+      } else {
+        req.flash('notice', 'Successfully signed in!');
+        res.redirect('/');
+      }
+    });
+  },
+  logout(req, res, next) {
+    req.logout();
+    res.redirect('/');
   }
 };

@@ -6,19 +6,21 @@
   <body>
     <% include ../static/partials/navbar.ejs %>
     <% include ../static/partials/messages.ejs %>
+
     <main>
       <div class="form-wrapper">
-        <form id="passwordForm" action="/users/create" method="POST">
-            <label for="name">Name</label>
-              <input type="text" name="name" id="name" placeholder="Enter name" required>
-            <label for="email">Email</label>
-              <input type="email" name="email" id="email" placeholder="Enter email" required>
-            <label for="password">Password</label>
-              <input type="password" id="password" name="password" placeholder="Enter password" required minlength="4">
-            <label for="confirmPassword">Confirm Password</label>
-              <input type="password" id="confirmPassword" name="passwordConf" placeholder="Enter password again" required minlength="4">
-            <small id="validation"></small>
-            <input type="submit" id="submitButton" value="Submit">
+        <h3>Sign Up</h3>
+        <form id="signUpForm" action="/users/create" method="POST">
+          <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter name" required autofocus>
+          <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter email" required>
+          <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required minlength="4">
+          <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="passwordConf" placeholder="Enter password again" required minlength="4">
+          <small id="validation"></small>
+          <input type="submit" id="submitButton" value="Submit">
         </form>
       </div>
 
@@ -41,7 +43,7 @@
         }
 
         if (matched) {
-          $('#passwordForm').submit();
+          $('#signUpForm').submit();
         } else {
           $('#validation').html('Password and confirmation must match');
           return false;
