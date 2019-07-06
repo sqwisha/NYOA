@@ -1,0 +1,15 @@
+<% if (messages) { %>
+  <div class="messages">
+      <ul>
+      <% if (messages.error) { %>
+          <% messages.error.forEach((error) => { %>
+            <li><%= error %></li>
+          <% }) %>
+      <% } else if (messages.notice) { %>
+          <% messages.notice.forEach((notice) => { %>
+            <li><%= notice %></li>
+          <% }) %>
+      <% } %>
+    </ul>
+  </div>
+<% } %>

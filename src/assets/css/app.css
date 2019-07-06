@@ -7,3 +7,28 @@ nav {
 nav li {
   display: inline-flex;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border: 1px solid rgb(48, 47, 47);
+  border-radius: 15px;
+  width: 300px;
+}
+
+form {
+  padding: 20px;
+  width: 100%;
+}
+
+form > * {
+  margin: 10px;
+  display: block;
+  width: 90%;
+}

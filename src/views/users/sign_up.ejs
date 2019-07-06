@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+    <title>Sign Up</title>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/messages.ejs %>
+    <main>
+      <div class="form-wrapper">
+        <form id="passwordForm" action="/users/create" method="POST">
+            <label for="name">Name</label>
+              <input type="text" name="name" id="name" placeholder="Enter name" required>
+            <label for="email">Email</label>
+              <input type="email" name="email" id="email" placeholder="Enter email" required>
+            <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter password" required minlength="4">
+            <label for="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword" name="passwordConf" placeholder="Enter password again" required minlength="4">
+            <small id="validation"></small>
+            <input type="submit" id="submitButton" value="Submit">
+        </form>
+      </div>
+
+
+    </main>
+
+    <% include ../static/partials/baseScripts.js %>
+    <script>
+    $(document).ready(function () {
+      $('#submitButton').click(function (e) {
+        e.preventDefault();
+        var matched,
+            password = $('#password').val(),
+            confirm = $('#confirmPassword').val();
+
+        if (password != '' && confirm != '') {
+          matched = password == confirm;
+        } else {
+          matched = false;
+        }
+
+        if (matched) {
+          $('#passwordForm').submit();
+        } else {
+          $('#validation').html('Password and confirmation must match');
+          return false;
+        }
+      });
+    });
+    </script>
+  </body>
+</html>
