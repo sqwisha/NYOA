@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require("express");
 const app = express();
 const path = require('path');
-const staticRoutes = require('./routes/static/index');
+const homeRoute = require('./routes/index');
 const userRoutes = require('./routes/users');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(staticRoutes);
+app.use(homeRoute);
 app.use(userRoutes);
 
 module.exports = app;

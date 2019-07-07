@@ -1,16 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Nunito:400,700&display=swap');
+
+/*
+font-family: 'Lato', sans-serif; header
+font-family: 'Nunito', sans-serif; body
+*/
+
+* {
+  color: #000;
+  font-family: 'Nunito', sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
 nav {
   display: inline-flex;
   justify-content: space-around;
   width: 100%;
+  font-family: 'Lato', sans-serif;
 }
 
 nav li {
   display: inline-flex;
+  margin: 0 5px;
+}
+
+footer {
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+footer a {
+  margin: 5px 10px;
 }
 
 main {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.header-title {
+  font-weight: 700;
 }
 
 .form-wrapper {
@@ -21,6 +64,7 @@ main {
   border: 1px solid rgb(48, 47, 47);
   border-radius: 15px;
   width: 300px;
+  margin: 0 auto;
 }
 
 form {
@@ -32,4 +76,42 @@ form > * {
   margin: 10px;
   display: block;
   width: 90%;
+}
+
+.story-title {
+  font-family: 'Lato', sans-serif;
+}
+
+section.main-story {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.main-story img, .main-story p {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main-story h3 {
+  font-style: italic;
+}
+
+section.story-cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1000px;
+  align-self: center;
+}
+
+.story-card {
+  width: 20%;
+  min-width: 200px;
+  margin: 2%;
+}
+
+.story-card img {
+  max-width: 100%;
 }

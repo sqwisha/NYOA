@@ -8,8 +8,31 @@
     <% include ./static/partials/navbar.ejs %>
     <% include ./static/partials/messages.ejs %>
     <main>
-      <h1>News Your Own Adventure - Personalized and Saveable News</h1>
+      <section class="main-story">
+        <a href="<%= mainStory.url %>">
+          <h2 class="story-title"><%= mainStory.title %></h2>
+          <h3><%= mainStory.description %></h3>
+          <img src="<%= mainStory.urlToImage %>" alt="Image of <%= mainStory.title %>">
+
+        </a>
+      </section>
+
+      <section class="story-cards">
+        <% stories.forEach((story) => { %>
+        <div class="story-card">
+          <a href="<%= story.url %>">
+            <img src="<%= story.urlToImage %>" alt="Image of <%= story.title %>">
+            <h3 class="story-title"><%= story.title %></h3>
+            <p><%= story.description %></p>
+          </a>
+        </div>
+        <% }) %>
+
+      </section>
+
     </main>
 
+    <% include ./static/partials/footer.ejs %>
+    <% include ./static/partials/baseScripts.ejs %>
   </body>
 </html>

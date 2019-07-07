@@ -2,14 +2,13 @@ const request = require('request');
 const base = 'http://localhost:3000';
 const server = require('../../src/server');
 
-describe('routes : static', () => {
+describe('routes : index', () => {
 
   describe('GET /', () => {
     it('should render a landing page containing "News Your Own Adventure"', (done) => {
       request.get(base, (err, res, body) => {
         expect(err).toBeNull();
         expect(res.statusCode).toBe(200);
-        expect(body).toContain('News Your Own Adventure');
         done();
       });
     });
@@ -27,6 +26,15 @@ describe('routes : static', () => {
         done();
       });
     });
+
+    it('should display recent news', (done) => {
+      request.get(base, (err, res, body) => {
+        expect(body).toContain('class="main-story"');
+        expect(body).toContain('class="story-card"');
+        done();
+      });
+    });
+
   });
 
 });

@@ -8,6 +8,7 @@
     <% include ../static/partials/messages.ejs %>
 
     <main>
+
       <div class="form-wrapper">
         <h3>Sign Up</h3>
         <form id="signUpForm" action="/users/create" method="POST">
@@ -24,10 +25,10 @@
         </form>
       </div>
 
-
     </main>
 
-    <% include ../static/partials/baseScripts.js %>
+    <% include ../static/partials/footer.ejs %>
+    <% include ../static/partials/baseScripts.ejs %>
     <script>
     $(document).ready(function () {
       $('#submitButton').click(function (e) {
