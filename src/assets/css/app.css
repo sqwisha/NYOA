@@ -25,9 +25,13 @@ a {
 
 nav {
   display: inline-flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  font-family: 'Lato', sans-serif;
+}
+
+nav ul {
+  padding: 0 20px 0 0;
 }
 
 nav li {
@@ -54,6 +58,8 @@ main {
 
 .header-title {
   font-weight: 700;
+  font-family: 'Lato', sans-serif;
+  padding-left: 20px;
 }
 
 .form-wrapper {
