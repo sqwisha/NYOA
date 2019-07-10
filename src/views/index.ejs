@@ -13,8 +13,11 @@
           <h2 class="story-title"><%= mainStory.title %></h2>
           <h3><%= mainStory.description %></h3>
           <img src="<%= mainStory.urlToImage %>" alt="Image of <%= mainStory.title %>">
-
         </a>
+        <form action="/story/save" method="post">
+          <input type="hidden" name="story" value="<%= mainStory %>">
+          <input type="submit" value="Save">
+        </form>
       </section>
 
       <section class="story-cards">
@@ -25,6 +28,10 @@
             <h3 class="story-title"><%= story.title %></h3>
             <p><%= story.description %></p>
           </a>
+          <form action="/story/save" method="post">
+            <input type="hidden" name="story" value="<%= JSON.stringify(story) %>">
+            <input type="submit" value="Save">
+          </form>
         </div>
         <% }) %>
 
