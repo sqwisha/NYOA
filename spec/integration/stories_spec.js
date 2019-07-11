@@ -113,7 +113,7 @@ describe('routes : saved', () => {
           }
         })
         .then((story) => {
-          expect(story.url).toBe('https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables');
+          expect(story.story.url).toBe('https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables');
           done();
         })
         .catch((err) => {
