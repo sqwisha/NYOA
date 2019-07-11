@@ -59,6 +59,29 @@ describe('routes : saved', () => {
 
   describe('POST stories/save', () => {
 
+    beforeEach((done) => {
+      request.get({
+        url: 'http://localhost:3000/auth/mock',
+        form: {
+          id: this.user.id,
+          email: this.user.email
+        }
+      }, (err, res, body) => {
+        done();
+      });
+    });
+
+    afterAll((done) => {
+      request.get({
+        url: 'http://localhost:3000/auth/mock',
+        form: {
+          id: 0
+        }
+      }, (err, res, body) => {
+        done();
+      });
+    })
+
     it('should create a new savedStory in the database', (done) => {
       let story = { url:
         'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',

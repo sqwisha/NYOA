@@ -32,6 +32,31 @@ app.use((req, res, next) => {
   next();
 });
 
+// mock-auth
+if (process.env.NODE_ENV === 'test') {
+  let id, email;
+
+  app.use((req, res, next) => {
+    id = req.body.id || id;
+    email = req.body.email || email;
+
+    if (id && id != 0) {
+      req.user = {
+        id: id,
+        email: email
+      };
+    } else if (id = 0) {
+      delete req.user;
+    }
+    if (next) { next() }
+  });
+
+  app.get('/auth/mock', (req, res) => {
+    res.redirect('/');
+  });
+
+}
+
 app.use(homeRoute);
 app.use(userRoutes);
 app.use(storyRoutes);
