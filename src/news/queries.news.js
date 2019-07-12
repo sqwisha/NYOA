@@ -8,7 +8,24 @@ module.exports = {
       pageSize: 49
     })
     .then((stories) => {
-      callback(null, stories.articles);
+      let articles = stories.articles;
+      // fill in missing data
+      for (var i = articles.length - 1; i >= 0; i--) {
+        if (articles[i].title === '' || !articles[i].title) {
+          articles.splice(i, 1);
+        }
+        if (!articles[i].urlToImage) {
+          articles[i].urlToImage = 'http://loremflickr.com/400/224/travel';
+        }
+        if (!articles[i].description) {
+          articles[i].description = articles[i].title || articles[i].content;
+        }
+        if (articles[i].content) {
+          articles[i].content = articles[i].description || articles[i].title;
+        }
+      }
+
+      callback(null, articles);
     })
     .catch((err) => {
       callback(err);
