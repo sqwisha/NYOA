@@ -15,8 +15,9 @@
           <img src="<%= mainStory.urlToImage %>" alt="Image of <%= mainStory.title %>">
         </a>
         <% if (currentUser) { %>
-          <form action="/story/save" method="post">
-            <input type="hidden" name="story" value="<%= mainStory %>">
+          <iframe name="save-story" style="display:none;"></iframe>
+          <form action="/story/save" method="post" target="save-story">
+            <input type="hidden" name="story" value="<%= JSON.stringify(mainStory) %>">
             <input type="submit" value="Save">
           </form>
         <% } %>
@@ -31,7 +32,8 @@
             <p><%= story.description %></p>
           </a>
           <% if (currentUser) { %>
-            <form action="/story/save" method="post">
+            <iframe name="save-story" style="display:none;"></iframe>
+            <form action="/story/save" method="post" target="save-story">
               <input type="hidden" name="story" value="<%= JSON.stringify(story) %>">
               <input type="submit" value="Save">
             </form>

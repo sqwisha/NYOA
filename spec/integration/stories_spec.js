@@ -6,14 +6,17 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const sequelize = require('../../src/db/models/index').sequelize;
 
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
+
 const User = require('../../src/db/models').User;
 const SavedStory = require('../../src/db/models').SavedStory;
 
 describe('routes : saved', () => {
 
-  beforeEach((done) => {
+  beforeAll((done) => {
     this.user;
-    this.savedStory;
+    this.savedStories = [];
 
     sequelize.sync({force: true}).then(() => {
       User.create({
@@ -24,29 +27,26 @@ describe('routes : saved', () => {
       .then((user) => {
         this.user = user;
 
-        SavedStory.create({
-          userId: this.user.id,
-          story: { url:
-            'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
-            title:
-            'US power output from renewables exceeds coal for the first time in history',
-            author: 'Jon Porter',
-            source: { id: 'the-verge', name: 'The Verge' },
-            content:
-            'Image: Arnold Paul / WikiMedia commons\r\nFor the first time, the United States produced more energy from renewable sources than from coal, according to new figures from the US Energy Information Administration. Hydroelectric dams, solar panels, and wind turbin… [+1334 chars]',
-            urlToImage:
-            'https://cdn.vox-cdn.com/thumbor/KYVEd_bRar9s-krcoM1kmowECc4=/0x146:1024x682/fit-in/1200x630/cdn.vox-cdn.com/assets/4548087/1024px-Coal_power_plant_Datteln_2_Crop1.png',
-            description:
-            'The United States produced more energy from renewable sources than from coal in the month of April. Hydroelectric dams, solar panels, and wind turbines generated 68.5 million megawatt-hours compared to 60 million for coal.',
-            publishedAt: '2019-06-26T17:58:16Z' }
+        newsapi.v2.topHeadlines({
+          language: 'en'
         })
-        .then((savedStory) => {
-          this.savedStory = savedStory;
+        .then((stories) => {
+          for (var i = 0; i < 5; i++) {
+            SavedStory.create({
+              userId: user.id,
+              story: stories.articles[i]
+            })
+            .then((story) => {
+              this.savedStories.push(story);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          }
           done();
         })
         .catch((err) => {
           console.log(err);
-          done();
         });
       })
       .catch((err) => {
@@ -57,7 +57,7 @@ describe('routes : saved', () => {
 
   });
 
-  describe('POST stories/save', () => {
+  describe('POST story/save', () => {
 
     beforeEach((done) => {
       request.get({
@@ -80,22 +80,25 @@ describe('routes : saved', () => {
       }, (err, res, body) => {
         done();
       });
-    })
+    });
 
     it('should create a new savedStory in the database', (done) => {
-      let story = { url:
-        'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
-        title:
-        'US power output from renewables exceeds coal for the first time in history',
-        author: 'Jon Porter',
-        source: { id: 'the-verge', name: 'The Verge' },
+      let storyObj = {
+        url:
+        'https://www.cnn.com/2019/06/18/opinions/real-goal-israel-palestinian-kushner-peace-plan-opinion-miller/index.html',
+        title: 'The real goal of Jared Kushner\'s peace plan',
+        author: 'Aaron David Miller',
+        source: { id: 'cnn', name: 'CNN' },
         content:
-        'Image: Arnold Paul / WikiMedia commons\r\nFor the first time, the United States produced more energy from renewable sources than from coal, according to new figures from the US Energy Information Administration. Hydroelectric dams, solar panels, and wind turbin… [+1334 chars]',
+        'Aaron David Miller is a vice president and distinguished scholar at the Woodrow Wilson International Center for Scholars ...',
         urlToImage:
-        'https://cdn.vox-cdn.com/thumbor/KYVEd_bRar9s-krcoM1kmowECc4=/0x146:1024x682/fit-in/1200x630/cdn.vox-cdn.com/assets/4548087/1024px-Coal_power_plant_Datteln_2_Crop1.png',
+        'https://cdn.cnn.com/cnnnext/dam/assets/190611071544-israel-palestinos-tensiones-super-tease.jpg',
         description:
-        'The United States produced more energy from renewable sources than from coal in the month of April. Hydroelectric dams, solar panels, and wind turbines generated 68.5 million megawatt-hours compared to 60 million for coal.',
-        publishedAt: '2019-06-26T17:58:16Z' };
+        'In the past several days, a few new wrinkles have appeared in the Trump administration "deal of the century" peace plan',
+        publishedAt: '2019-06-18T11:14:14Z'
+      };
+
+      let story = JSON.stringify(storyObj);
 
       request.post({
         url: `${base}/save`,
@@ -103,17 +106,18 @@ describe('routes : saved', () => {
           story: story
         }
       }, (err, res, body) => {
+
         SavedStory.findOne({
           where: {
             story: {
               [Op.contains]: {
-                title: 'US power output from renewables exceeds coal for the first time in history'
+                title: 'The real goal of Jared Kushner\'s peace plan'
               }
             }
           }
         })
         .then((story) => {
-          expect(story.story.url).toBe('https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables');
+          expect(story.story.url).toBe('https://www.cnn.com/2019/06/18/opinions/real-goal-israel-palestinian-kushner-peace-plan-opinion-miller/index.html');
           done();
         })
         .catch((err) => {
@@ -124,5 +128,40 @@ describe('routes : saved', () => {
     });
 
   });
+
+  describe('GET story/saved_stories', () => {
+
+    beforeEach((done) => {
+      request.get({
+        url: 'http://localhost:3000/auth/mock',
+        form: {
+          id: this.user.id,
+          email: this.user.email
+        }
+      }, (err, res, body) => {
+        done();
+      });
+    });
+
+    afterAll((done) => {
+      request.get({
+        url: 'http://localhost:3000/auth/mock',
+        form: {
+          id: 0
+        }
+      }, (err, res, body) => {
+        done();
+      });
+    });
+
+    it('should render all saved stories for user', (done) => {
+      request.get(`${base}/saved_stories`, (err, res, body) => {
+        expect(body).toContain(this.savedStories[0].story.title);
+        expect(body).toContain(this.savedStories[1].story.title);
+        done();
+      });
+    });
+
+  })
 
 });

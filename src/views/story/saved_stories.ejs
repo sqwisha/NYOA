@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+    <title>Saved Stories</title>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/messages.ejs %>
+
+    <main>
+      <h1 class="header-title">Saved Stories</h1>
+      <section class="story-cards">
+        <% stories.forEach((story) => { %>
+        <div class="story-card">
+          <a href="<%= story.story.url %>">
+            <img src="<%= story.story.urlToImage %>" alt="Image of <%= story.story.title %>">
+            <h3 class="story-title"><%= story.story.title %></h3>
+            <p><%= story.story.description %></p>
+          </a>
+        </div>
+        <% }) %>
+
+      </section>
+
+    </main>
+
+    <% include ../static/partials/footer.ejs %>
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>
