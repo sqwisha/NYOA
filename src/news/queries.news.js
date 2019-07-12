@@ -15,7 +15,7 @@ module.exports = {
           articles.splice(i, 1);
         }
         if (!articles[i].urlToImage) {
-          articles[i].urlToImage = 'http://loremflickr.com/400/224/travel';
+          articles[i].urlToImage = 'https://loremflickr.com/400/224/travel';
         }
         if (!articles[i].description) {
           articles[i].description = articles[i].title || articles[i].content;
