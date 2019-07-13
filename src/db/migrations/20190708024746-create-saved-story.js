@@ -21,6 +21,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.JSONB
       },
+      url: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+        unique: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

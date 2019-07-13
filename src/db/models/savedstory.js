@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     story: {
       type: DataTypes.JSONB,
       allowNull: false
+    },
+    url: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      unique: true
     }
   }, {});
   SavedStory.associate = function(models) {

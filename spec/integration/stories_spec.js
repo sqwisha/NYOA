@@ -34,7 +34,8 @@ describe('routes : saved', () => {
           for (var i = 0; i < 5; i++) {
             SavedStory.create({
               userId: user.id,
-              story: stories.articles[i]
+              story: stories.articles[i],
+              url: stories.articles[i].url
             })
             .then((story) => {
               this.savedStories.push(story);
@@ -125,6 +126,19 @@ describe('routes : saved', () => {
           done();
         });
       });
+    });
+
+    it('should not allow creation of duplicate saved stories', (done) => {
+      request.post({
+        url: `${base}/save`,
+        form: {
+          story: JSON.stringify(this.savedStories[0])
+        }
+      }, (err, res, body) => {
+        expect(body).toContain('Redirecting to /');
+        done();
+      })
+
     });
 
   });

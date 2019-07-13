@@ -1,6 +1,5 @@
 const sequelize = require('../../src/db/models/index').sequelize;
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 const SavedStory = require('../../src/db/models').SavedStory;
 const User = require('../../src/db/models').User;
 
@@ -87,6 +86,41 @@ describe('SavedStory', () => {
       });
     });
 
+    it('should not create duplicate savedStory', (done) => {
+      SavedStory.create({
+        userId: this.user.id,
+        url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
+        story: {
+          url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
+          title: 'US power output from renewables exceeds coal for the first time in history',
+          author: 'Jon Porter'
+        }
+      })
+      .then((story) => {
+        SavedStory.create({
+          userId: this.user.id,
+          url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
+          story: {
+            url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
+            title: 'US power output from renewables exceeds coal for the first time in history',
+            author: 'Jon Porter'
+          }
+        })
+        .then((duplicateStory) => {
+          // should skip
+          done();
+        })
+        .catch((err) => {
+          expect(err.name).toContain('SequelizeUniqueConstraintError');
+          done();
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+        done();
+      });
+    });
+
   });
 
   describe('#destroy()', () => {
@@ -95,6 +129,7 @@ describe('SavedStory', () => {
 
       SavedStory.create({
         userId: this.user.id,
+        url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
         story: {
           url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
           title: 'US power output from renewables exceeds coal for the first time in history',
@@ -109,11 +144,7 @@ describe('SavedStory', () => {
 
           SavedStory.destroy({
             where: {
-              story: {
-                [Op.contains]: {
-                  title: 'US power output from renewables exceeds coal for the first time in history'
-                }
-              }
+              url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables'
             }
           })
           .then(() => {
