@@ -96,7 +96,7 @@ form > * {
 
 section.main-story {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 2em;
   max-width: 1000px;
 }
 
@@ -119,11 +119,53 @@ section.story-cards {
 }
 
 .story-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 20%;
   min-width: 200px;
-  margin: 2%;
+  padding: .7em;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  margin: .5em auto;
+  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
 }
 
 .story-card img {
   max-width: 100%;
+}
+
+
+/* home page save button */
+
+form.save-form {
+  width: 100%;
+  margin: 0.5em 0 0;
+}
+
+input.save-button {
+  outline-style: none;
+  width: 100%;
+  background-color: #4E7ED0;
+  margin: 0;
+  border-radius: 7px;
+  height: 2em;
+  border: none;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: 0.1s;
+  color: #fff;
+}
+
+input.save-button:focus {
+  background-color: #4E7ED0;
+}
+
+input.save-button:hover {
+  background-color: #4E7ED0;
+  opacity: 1;
+}
+
+input.save-button:active {
+  background-color: #FF8D4F;
 }

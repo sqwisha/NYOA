@@ -16,9 +16,9 @@
         </a>
         <% if (currentUser) { %>
           <iframe name="save-story" style="display:none;"></iframe>
-          <form action="/story/save" method="post" target="save-story">
+          <form action="/story/save" method="post" target="save-story" class="save-form">
             <input type="hidden" name="story" value="<%= JSON.stringify(mainStory) %>">
-            <input type="submit" value="Save">
+            <input class="save-button" type="submit" value="Save">
           </form>
         <% } %>
       </section>
@@ -33,9 +33,9 @@
           </a>
           <% if (currentUser) { %>
             <iframe name="save-story" style="display:none;"></iframe>
-            <form action="/story/save" method="post" target="save-story">
+            <form action="/story/save" method="post" target="save-story" class="save-form">
               <input type="hidden" name="story" value="<%= JSON.stringify(story) %>">
-              <input type="submit" value="Save">
+              <input class="save-button" type="submit" value="Save">
             </form>
           <% } %>
         </div>
