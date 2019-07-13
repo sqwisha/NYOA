@@ -10,15 +10,13 @@ module.exports = {
       url: JSON.parse(req.body.story).url
     })
     .then((story) => {
-      req.flash('notice', 'Story saved!');
       res.redirect('/')
     })
     .catch((err) => {
       if (err.name == 'SequelizeUniqueConstraintError') {
-        req.flash('notice', 'story already saved');
         res.redirect('/');
       } else {
-        req.flash('error', `An error occurred: ${err}`);
+        req.flash('error', err.message);
         res.redirect('/');
       }
 
@@ -31,12 +29,11 @@ module.exports = {
       }
     })
     .then(() => {
-      req.flash('notice', 'Story unsaved');
       res.redirect('/story/saved_stories');
     })
     .catch((err) => {
-      req.flash('error', `${err.message}`);
-      res.redirect('/story/saved_stories');
+      req.flash('error', err.message);
+      res.render('story/saved_stories');
     });
   },
   getUserStories(req, res, next) {
@@ -49,7 +46,7 @@ module.exports = {
       ]
     })
     .then((stories) => {
-      res.render('story/saved_stories', {stories})
+      res.render('story/saved_stories', {stories});
     })
     .catch((err) => {
       req.flash('notice', 'There was a problem retrieving saved stories. Please try again.');
