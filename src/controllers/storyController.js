@@ -24,6 +24,21 @@ module.exports = {
 
     });
   },
+  deleteStory(req, res, next) {
+    SavedStory.destroy({
+      where: {
+        url: req.body.storyUrl
+      }
+    })
+    .then(() => {
+      req.flash('notice', 'Story unsaved');
+      res.redirect('/story/saved_stories');
+    })
+    .catch((err) => {
+      req.flash('error', `${err.message}`);
+      res.redirect('/story/saved_stories');
+    });
+  },
   getUserStories(req, res, next) {
     SavedStory.findAll({
       where: {
@@ -39,6 +54,6 @@ module.exports = {
     .catch((err) => {
       req.flash('notice', 'There was a problem retrieving saved stories. Please try again.');
       res.redirect('/');
-    })
+    });
   }
 }

@@ -17,6 +17,10 @@
             <h3 class="story-title"><%= story.story.title %></h3>
             <p><%= story.story.description %></p>
           </a>
+          <form action="/story/unsave" method="POST">
+            <input type="hidden" name="storyUrl" value="<%= story.story.url %>">
+            <input type="submit" value="&#10006;">
+          </form>
         </div>
         <% }) %>
 
