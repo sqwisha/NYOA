@@ -30,6 +30,7 @@ describe('SavedStory', () => {
     it('should create a new savedStory', (done) => {
       SavedStory.create({
         userId: this.user.id,
+        url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
         story: {
           url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
           title: 'US power output from renewables exceeds coal for the first time in history',
@@ -56,6 +57,7 @@ describe('SavedStory', () => {
 
     it('should not create a savedStory with no userId', (done) => {
       SavedStory.create({
+        url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
         story: {
           url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
           title: 'US power output from renewables exceeds coal for the first time in history',
@@ -74,7 +76,8 @@ describe('SavedStory', () => {
 
     it('should not create savedStory with no story object', (done) => {
       SavedStory.create({
-        userId: this.user.id
+        userId: this.user.id,
+        url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables'
       })
       .then((story) => {
         // should skip
@@ -82,6 +85,25 @@ describe('SavedStory', () => {
       })
       .catch((err) => {
         expect(err.message).toContain('SavedStory.story cannot be null');
+        done();
+      });
+    });
+
+    it('should not create a savedStory with no url', (done) => {
+      SavedStory.create({
+        userId: this.user.id,
+        story: {
+          url: 'https://www.theverge.com/2019/6/26/18759933/usa-coal-power-natural-gas-renewables',
+          title: 'US power output from renewables exceeds coal for the first time in history',
+          author: 'Jon Porter'
+        }
+      })
+      .then((story) => {
+        // should skip
+        done();
+      })
+      .catch((err) => {
+        expect(err.message).toContain('SavedStory.url cannot be null');
         done();
       });
     });
