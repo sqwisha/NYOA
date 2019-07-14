@@ -99,7 +99,7 @@ nav h3.header-title {
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 15px;
+  border-radius: 3px;
   width: 350px;
   margin: 10vh auto 0;
   background-color: #fff;
@@ -116,7 +116,6 @@ nav h3.header-title {
 
 .form-wrapper input:focus {
   outline: none;
-
 }
 
 .form-wrapper label {
@@ -132,7 +131,7 @@ nav h3.header-title {
   opacity: 0.85;
   transition: 0.1s;
   color: #fff;
-  border-radius: 7px;
+  border-radius: 3px;
 }
 
 .form-wrapper input[type="submit"]:hover {
@@ -150,36 +149,38 @@ form > * {
 }
 
 small#validation {
-  margin: 12px auto;
+  margin: 20px;
 }
 
 
 /* Main Story - Home Page */
+#main-banner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+}
 
 section.main-story {
   width: 100%;
-  margin: 0 auto 2em;
-  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+  max-width: 1000px;
   background-color: #fff;
-  padding: .7em 0;
-  border-radius: 2px;
-  margin: .5em auto;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-}
-
-.main-story a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 .7em .7em;
+}
+
+.main-story a {
+  width: 100%;
 }
 
 .main-story h2,
 .main-story h3,
 .main-story img {
-  max-width: 950px;
+  max-width: 1000px;
+  width: 100%;
 }
 
 .main-story h2,
@@ -187,15 +188,9 @@ section.main-story {
   align-self: flex-start;
 }
 
-.main-story input {
-  max-width: 950px;
-  align-self: flex-start
-}
-
 .main-story h3 {
   font-style: italic;
 }
-
 
 /* Story Cards - Home & Saved Stories Page */
 

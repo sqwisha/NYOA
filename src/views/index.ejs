@@ -8,21 +8,22 @@
     <% include ./static/partials/navbar.ejs %>
     <% include ./static/partials/messages.ejs %>
     <main>
-      <section class="main-story">
-        <a href="<%= mainStory.url %>">
-          <h2 class="story-title"><%= mainStory.title %></h2>
-          <h3><%= mainStory.description %></h3>
-          <img src="<%= mainStory.urlToImage %>" alt="Image of <%= mainStory.title %>">
-        </a>
-        <% if (currentUser) { %>
-          <iframe name="save-story" style="display:none;"></iframe>
-          <form action="/story/save" method="post" target="save-story" class="save-form">
-            <input type="hidden" name="story" value="<%= JSON.stringify(mainStory) %>">
-            <input class="save-button" type="submit" value="Save">
-          </form>
-        <% } %>
-      </section>
-
+      <div id="main-banner">
+        <section class="main-story">
+          <a href="<%= mainStory.url %>">
+            <h2 class="story-title"><%= mainStory.title %></h2>
+            <h3><%= mainStory.description %></h3>
+            <img src="<%= mainStory.urlToImage %>" alt="Image of <%= mainStory.title %>">
+          </a>
+          <% if (currentUser) { %>
+            <iframe name="save-story" style="display:none;"></iframe>
+            <form action="/story/save" method="post" target="save-story" class="save-form">
+              <input type="hidden" name="story" value="<%= JSON.stringify(mainStory) %>">
+              <input class="save-button" type="submit" value="Save">
+            </form>
+          <% } %>
+        </section>
+      </div>
       <section class="story-cards">
         <% stories.forEach((story) => { %>
         <div class="story-card">
