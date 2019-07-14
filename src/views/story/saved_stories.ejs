@@ -8,18 +8,18 @@
     <% include ../static/partials/messages.ejs %>
 
     <main>
-      <h1 class="header-title">Saved Stories</h1>
+      <h2 class="saved-stories header-title">Saved Stories</h2>
       <section class="story-cards">
         <% stories.forEach((story) => { %>
         <div class="story-card">
           <a href="<%= story.story.url %>">
-            <img src="<%= story.story.urlToImage %>" alt="Image of <%= story.story.title %>">
+            <img src="<%= story.story.urlToImage %>" alt="Image of <%= story.story.title %>"  class="story-card-img">
             <h3 class="story-title"><%= story.story.title %></h3>
-            <p><%= story.story.description %></p>
+            <p class="story-description"><%= story.story.description %></p>
           </a>
-          <form action="/story/unsave" method="POST">
+          <form action="/story/unsave" method="POST" class="save-form">
             <input type="hidden" name="storyUrl" value="<%= story.story.url %>">
-            <input type="submit" value="&#10006;">
+            <input type="submit" value="Unsave" class="unsave-button">
           </form>
         </div>
         <% }) %>

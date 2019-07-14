@@ -27,9 +27,9 @@
         <% stories.forEach((story) => { %>
         <div class="story-card">
           <a href="<%= story.url %>">
-            <img src="<%= story.urlToImage %>" alt="Image of <%= story.title %>">
+            <img src="<%= story.urlToImage %>" alt="Image of <%= story.title %>" class="story-card-img">
             <h3 class="story-title"><%= story.title %></h3>
-            <p><%= story.description %></p>
+            <p class="story-description"><%= story.description %></p>
           </a>
           <% if (currentUser) { %>
             <iframe name="save-story" style="display:none;"></iframe>

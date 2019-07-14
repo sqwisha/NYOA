@@ -143,8 +143,8 @@ describe('routes : saved', () => {
 
       it('should render all saved stories for user', (done) => {
         request.get(`${base}/saved_stories`, (err, res, body) => {
-          expect(body).toContain(this.savedStories[0].story.title);
-          expect(body).toContain(this.savedStories[1].story.title);
+          expect(body).toContain(this.savedStories[0].story.url);
+          expect(body).toContain(this.savedStories[1].story.url);
           done();
         });
       });

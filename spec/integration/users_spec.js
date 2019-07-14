@@ -22,7 +22,7 @@ describe('routes : users', () => {
       request.get(`${base}/sign_up`, (err, res, body) => {
         expect(err).toBeNull();
         expect(res.statusCode).toBe(200);
-        expect(body).toContain('<h3>Sign Up</h3>');
+        expect(body).toContain('<h1 class="header-title">Sign Up</h1>');
         done();
       });
     });
@@ -71,7 +71,7 @@ describe('routes : users', () => {
     it('should render sign in page', (done) => {
       request.get(`${base}/sign_in`, (err, res, body) => {
         expect(res.statusCode).toBe(200);
-        expect(body).toContain('<h3>Sign In</h3>');
+        expect(body).toContain('<h1 class="header-title">Sign In</h1>');
         done();
       });
     });

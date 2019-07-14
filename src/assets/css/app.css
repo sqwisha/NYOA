@@ -10,6 +10,10 @@ font-family: 'Nunito', sans-serif; body
   font-family: 'Nunito', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   height: 100%;
 }
@@ -17,6 +21,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  background-color: rgb(241, 241, 241);
 }
 
 a {
@@ -28,15 +33,26 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  /* background-color: #494949; */
+  background-color: #1f1f1f;
+  box-shadow: 0px -2px 5px 4px rgba(0,0,0,0.3);
 }
 
 nav ul {
+  list-style-type: none;
   padding: 0 20px 0 0;
+  display: flex;
+  align-items: center;
 }
 
 nav li {
-  display: inline-flex;
-  margin: 0 5px;
+  padding: 0 10px;
+
+  white-space: nowrap;
+}
+
+nav li a {
+  color: #eee;
 }
 
 footer {
@@ -60,53 +76,131 @@ main {
   font-weight: 700;
   font-family: 'Lato', sans-serif;
   padding-left: 20px;
+  letter-spacing: .03em;
 }
 
-h1.header-title{
+nav h3.header-title {
+  /* color: #4E7ED0; */
+  /* color: #6E92D0; */
+  color: #64D0AF;
+}
+
+.saved-stories.header-title{
   align-self: center;
   width: 100%;
   max-width: 1000px;
 }
+
+/* Sign In & Sign Up Forms */
 
 .form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgb(48, 47, 47);
+  border: none;
   border-radius: 15px;
-  width: 300px;
-  margin: 0 auto;
+  width: 350px;
+  margin: 10vh auto 0;
+  background-color: #fff;
+  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+}
+
+.form-wrapper input {
+  margin: 12px 20px;
+  padding: 5px 0 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.form-wrapper input:focus {
+  outline: none;
+
+}
+
+.form-wrapper label {
+  padding: 5px 0 0 20px;
+  width: 100%;
+}
+
+.form-wrapper input[type="submit"] {
+  margin: 20px 20px 12px;
+  background-color: #4E7ED0;
+  height: 2em;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: 0.1s;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.form-wrapper input[type="submit"]:hover {
+  opacity: 1;
 }
 
 form {
-  width: 90%;
+  width: 100%;
   margin-bottom: 20px;
 }
 
 form > * {
-  margin: 10px;
   display: block;
   width: 90%;
 }
 
-.story-title {
-  font-family: 'Lato', sans-serif;
+small#validation {
+  margin: 12px auto;
 }
+
+
+/* Main Story - Home Page */
 
 section.main-story {
   width: 100%;
   margin: 0 auto 2em;
-  max-width: 1000px;
+  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+  background-color: #fff;
+  padding: .7em 0;
+  border-radius: 2px;
+  margin: .5em auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
-.main-story img, .main-story p {
-  width: 100%;
+.main-story a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
+}
+
+.main-story h2,
+.main-story h3,
+.main-story img {
+  max-width: 950px;
+}
+
+.main-story h2,
+.main-story h3 {
+  align-self: flex-start;
+}
+
+.main-story input {
+  max-width: 950px;
+  align-self: flex-start
 }
 
 .main-story h3 {
   font-style: italic;
+}
+
+
+/* Story Cards - Home & Saved Stories Page */
+
+.story-title {
+  font-family: 'Lato', sans-serif;
 }
 
 section.story-cards {
@@ -116,6 +210,7 @@ section.story-cards {
   justify-content: flex-start;
   max-width: 1000px;
   align-self: center;
+
 }
 
 .story-card {
@@ -125,18 +220,27 @@ section.story-cards {
   width: 20%;
   min-width: 200px;
   padding: .7em;
-  border: 1px solid #eee;
   border-radius: 2px;
   margin: .5em auto;
   box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+  background-color: #fff;
+  align-items: center;
 }
 
-.story-card img {
+.story-card-img {
   max-width: 100%;
 }
 
+.story-description {
+  overflow-y: ellipsis;
+  overflow: hidden;
+  max-height: 8em;
+  height: 100%;
+  margin: 0;
+  padding: 1em 0;
+}
 
-/* home page save button */
+/* Save Button - Home Page */
 
 form.save-form {
   width: 100%;
@@ -147,7 +251,7 @@ input.save-button {
   outline-style: none;
   width: 100%;
   background-color: #4E7ED0;
-  margin: 0;
+  margin: 0 auto;
   border-radius: 7px;
   height: 2em;
   border: none;
@@ -162,10 +266,33 @@ input.save-button:focus {
 }
 
 input.save-button:hover {
-  background-color: #4E7ED0;
   opacity: 1;
 }
 
 input.save-button:active {
   background-color: #FF8D4F;
+}
+
+/* Unsave Button - Saved Stories Page */
+
+input.unsave-button {
+  outline-style: none;
+  width: 100%;
+  background-color: #FF8D4F;
+  margin: 0 auto;
+  border-radius: 7px;
+  height: 2em;
+  border: none;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: 0.1s;
+  color: #fff;
+}
+
+input.unsave-button:hover {
+  opacity: 1;
+}
+
+input.unsave-button:active {
+  background-color: #4E7ED0;
 }
