@@ -6,7 +6,10 @@ A news application which allows users to save and categorize stories.
 ### Current Progress
 
 #### Landing Page
-![Landing Page](https://i.imgur.com/zFxtzHs.png)
+![Landing Page](https://i.imgur.com/mbHZetk.png)
+
+Scrolled
+![Landing Page Scrolled](https://i.imgur.com/aNhXDxa.png)
 
 #### Sign Up (Sign In is similar)
 ![Sign Up](https://i.imgur.com/Xt6eexZ.png)
